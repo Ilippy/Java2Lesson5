@@ -31,23 +31,17 @@ public class Main extends Thread {
 		float[] secondHalfArray = new float[h];
 		System.arraycopy(array, 0, firstHalfArray, 0, h);
 		System.arraycopy(array, h, secondHalfArray, 0, h);
-		thread1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				long b = System.currentTimeMillis();
-				makeCalc(firstHalfArray);
-				b = System.currentTimeMillis() - b;
-				System.out.println(TIME_SPEND_ON_THREAD1 +b);
-			}
+		thread1 = new Thread(() -> {
+			long b = System.currentTimeMillis();
+			makeCalc(firstHalfArray);
+			b = System.currentTimeMillis() - b;
+			System.out.println(TIME_SPEND_ON_THREAD1 +b);
 		});
-		thread2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				long c = System.currentTimeMillis();
-				makeCalc(secondHalfArray);
-				c = System.currentTimeMillis() - c;
-				System.out.println(TIME_SPEND_ON_THREAD2 +c);
-			}
+		thread2 = new Thread(() -> {
+			long c = System.currentTimeMillis();
+			makeCalc(secondHalfArray);
+			c = System.currentTimeMillis() - c;
+			System.out.println(TIME_SPEND_ON_THREAD2 +c);
 		});
 		thread1.start();
 		thread2.start();
